@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* horizontal => eje x */
+.container1 {
+  border: red solid;
+  display: flex;
+  /* por defecto solo crea 1 fila */
+  /* flex-direction: row; */
+  flex-direction: row-reverse;
+  /* obliga a que flex respete el ancho */
+  flex-wrap: wrap;
+}
+
+.container1 > div {
+  border: green solid;
+  width: 25%;
+  height: 300px;
+}
+
+.container2 {
+  display: flex;
+  margin-top: 50px;
+  border: 2px solid;
+  height: 300px;
+  flex-direction: row;
+  /* justify-content: flex-end; */
+  /* justify-content: center; */
+  /* justify-content: space-between; */
+  /* justify-content: space-around; */
+  /* manipular los elementos en fila(row) */
+  justify-content: space-evenly;
+  /* manupula los elementos en column (columna) */
+  align-items: center;
+  /* align-items: flex-end; */
+  /* align-items: flex-start; */
+}
+
+.container2 > div {
+  border: blue solid;
+  width: 100px;
+  height: 100px;
+}
+
+.container3 {
+  margin-top: 50px;
+  height: 900px;
+  border: solid red 1px;
+  display: flex;
+  flex-direction: column;
+  /* vertical */
+  /* justify-content: center; */
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.container3 > div {
+  border: green solid;
+  width: 200px;
+  height: 200px;
+}
+
+.container4 {
+  display: flex;
+  margin-top: 50px;
+}
+
+.container4 > div {
+  border: solid purple;
+  font-size: 40px;
+}
+
+.item1 {
+  flex-grow: 1.5;
+}
+
+.item2 {
+  flex-grow: 5;
+}
+
+.item3 {
+  flex-grow: 1;
+}

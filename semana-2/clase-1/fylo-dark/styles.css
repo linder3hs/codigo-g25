@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: hsl(217, 28%, 15%);
+  color: white;
+  font-family: Verdana, sans-serif;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+}
+
+nav > ul {
+  display: flex;
+  gap: 50px;
+  list-style: none;
+}

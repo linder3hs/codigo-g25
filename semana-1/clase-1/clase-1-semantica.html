@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- navegacion, enlances, botones, logos -->
+    <header>
+      <!-- navegación con semantica correcta -->
+      <nav>
+        <ul>
+          <li>
+            <a href="#inicio">Inicio</a>
+          </li>
+          <li>
+            <a href="#proyectos">Proyectos</a>
+          </li>
+          <li>
+            <a href="#contacto">Contactanos</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="inicio">
+        <h1>Bienvenido a mi portafolio web</h1>
+        <p>
+          Este es el conjunto de proyectos que he desarrollado a largo de mi
+          carrera
+        </p>
+        <div>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png"
+            alt="Logo de JS"
+            width="50%"
+          />
+        </div>
+        <button>Conctactar ahora!</button>
+      </section>
+      <section id="proyectos">
+        <h2>Proyectos</h2>
+        <article>
+          <h3>JS Playground</h3>
+          <p>Editor de codigo online, basado en VSCode</p>
+          <a href="https://js-playground-alpha.vercel.app/">Visitar</a>
+          <div>
+            <img
+              src="./js-playground.png"
+              width="300"
+              alt="Imagen del proyecto JS Playground"
+            />
+          </div>
+        </article>
+        <article>
+          <h3>JS Playground</h3>
+          <p>Editor de codigo online, basado en VSCode</p>
+          <a href="https://js-playground-alpha.vercel.app/">Visitar</a>
+          <div>
+            <img
+              src="./js-playground.png"
+              width="300"
+              alt="Imagen del proyecto JS Playground"
+            />
+          </div>
+        </article>
+        <article>
+          <h3>JS Playground</h3>
+          <p>Editor de codigo online, basado en VSCode</p>
+          <a href="https://js-playground-alpha.vercel.app/">Visitar</a>
+          <div>
+            <img
+              src="./js-playground.png"
+              width="300"
+              alt="Imagen del proyecto JS Playground"
+            />
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer>
+      <section>
+        <h2>Ayuda</h2>
+        <address>
+          <a href="mailto:linderhassinger00@gmail.com">Enviar un correo</a>
+        </address>
+        <a
+          href="https://wa.me/51989772179?text=I'm%20interested%20in%20your%20car%20for%20sale"
+          >Enviar un wsp</a
+        >
+      </section>
+      <section>
+        <h2>Contacto</h2>
+        <!-- crear un formulario -->
+        <form>
+          <div>
+            <label for="nombre">Nombre</label>
+            <input id="nombre" type="text" />
+          </div>
+          <div>
+            <label for="edad">Edad</label>
+            <input id="edad" type="number" />
+          </div>
+          <div>
+            <label for="correo">Correo</label>
+            <input id="correo" type="email" required />
+          </div>
+          <div>
+            <label for="pais">País de origen</label>
+            <select id="pais">
+              <option value="">Peru</option>
+              <option value="">Colombia</option>
+              <option value="">Venezuela</option>
+              <option value="">Chile</option>
+            </select>
+          </div>
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
+    </footer>
+  </body>
+</html>

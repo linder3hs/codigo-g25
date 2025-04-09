@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./formulario.css" />
+  </head>
+  <body>
+    <main>
+      <section>
+        <h1>Formularios</h1>
+        <form>
+          <div class="row">
+            <div class="form-control">
+              <label for="input-nombre">Escribe tu nombre <span>*</span></label>
+              <input
+                id="input-nombre"
+                type="text"
+                name="nombre"
+                required
+                placeholder="Ingrese su nombre"
+              />
+            </div>
+            <div class="form-control">
+              <label for="input-edad">Escribe tu edad <span>*</span></label>
+              <input
+                id="input-edad"
+                required
+                name="edad"
+                type="number"
+                placeholder="Ingrese su edad"
+              />
+            </div>
+          </div>
+          <div class="form-control">
+            <label for="input-fecha">Esribe tu fecha de nacimiento</label>
+            <input id="input-fecha" name="fecha_nacimiento" type="date" />
+          </div>
+          <div class="form-control">
+            <label for="input-hora">Esribe tu hora de nacimiento</label>
+            <input id="input-hora" name="hora_nacimiento" type="time" />
+          </div>
+          <div class="form-control">
+            <label for="input-correo">Escribe tu correo</label>
+            <input
+              id="input-correo"
+              type="email"
+              name="correo"
+              placeholder="Ingrese su correo"
+            />
+          </div>
+          <div class="form-control">
+            <label for="input-password">Escribe un password seguro</label>
+            <input
+              id="input-password"
+              type="password"
+              name="password"
+              placeholder="Ingrese su password"
+            />
+          </div>
+          <div class="form-buttons">
+            <button type="reset">Reiniciar</button>
+            <button type="submit">Enviar</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

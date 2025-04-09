@@ -1,0 +1,32 @@
+@font-face {
+  /* El nombre que le asignaremos a la fuente */
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-Bold.ttf");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "Poppins", sans-serif, Arial;
+}
+
+/* p {
+  font-weight: 600;
+} */

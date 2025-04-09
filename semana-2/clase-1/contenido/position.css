@@ -1,0 +1,36 @@
+.menu {
+  background-color: rgb(55, 235, 163);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  position: fixed;
+  /* width: 100%; */
+  right: 20px;
+  bottom: 20px;
+}
+
+.element1 {
+  border: solid red;
+  width: 100px;
+  padding-top: 50px;
+  /* dentro del body */
+  position: relative;
+  /* solo funcionan si es que existe position */
+  /* arriba */
+  top: 50%;
+  /* abajo */
+  bottom: 10px;
+  /* izquierda */
+  left: 100px;
+  /* derecha */
+  right: 100px;
+}
+
+.child1 {
+  border: solid blue;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 25px;
+  top: 20px;
+}

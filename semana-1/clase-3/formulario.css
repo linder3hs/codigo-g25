@@ -1,0 +1,78 @@
+/* reset css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, sans-serif;
+  background-color: hsl(148, 38%, 91%);
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+section {
+  background-color: white;
+  width: 80%;
+  border-radius: 20px;
+}
+
+section > * {
+  padding: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.form-control {
+  margin-bottom: 40px;
+  flex: 1;
+}
+
+.form-control label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+span {
+  color: hsl(169, 82%, 27%);
+  font-size: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.form-buttons > button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+}
+
+.form-buttons > button:first-child {
+  background-color: hsl(148, 38%, 91%);
+}
+
+.form-buttons > button:last-child {
+  background-color: hsl(169, 82%, 27%);
+  color: white;
+}
