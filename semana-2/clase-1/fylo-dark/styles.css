@@ -148,3 +148,49 @@ main {
   width: 35%;
   line-height: 2;
 }
+
+.testimonials {
+  background-color: hsl(218, 28%, 13%);
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.testimonial-1 {
+  background-color: hsl(217, 28%, 15%);
+  width: 80%;
+  margin: auto;
+  padding: 16px;
+  position: relative;
+  border-radius: 8px;
+  padding-bottom: 20px;
+}
+
+.testimonial-1 > img {
+  position: absolute;
+  top: -25px;
+  left: 5px;
+}
+
+.testimonial-1 > div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.testimonial-1 > p {
+  margin-bottom: 20px;
+}
+
+.testimonial-1 > div > img {
+  border-radius: 50%;
+}
+
+.testimonial-1 > div > div > h5 {
+  font-size: 20px;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.testimonial-1 > div > div > p {
+  font-size: 12px;
+}
