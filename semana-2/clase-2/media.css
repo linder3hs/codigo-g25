@@ -1,0 +1,44 @@
+/* Por defecto estara pensando para que los estilos
+funcionen en un telefono */
+/* telefono */
+body {
+  background-color: red;
+}
+
+/* media query: lo que nos permite es asignar 
+un estilo diferente por tamaño */
+
+/* tablets > 576px */
+@media (min-width: 576px) {
+  body {
+    background-color: blue;
+  }
+}
+
+/* tablets grandes 768px */
+@media (min-width: 768px) {
+  body {
+    background-color: yellow;
+  }
+}
+
+/* Laptop: 992px */
+@media (min-width: 992px) {
+  body {
+    background-color: green;
+  }
+}
+
+/* Monitores: 1200px */
+@media (min-width: 1200px) {
+  body {
+    background-color: purple;
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1400px) {
+  body {
+    background-color: chocolate;
+  }
+}
