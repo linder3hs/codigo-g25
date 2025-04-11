@@ -1,13 +1,11 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   background-color: hsl(217, 28%, 15%);
   color: white;
-  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+button {
+  font-family: "Open Sans", sans-serif;
 }
 
 a {
@@ -15,15 +13,101 @@ a {
   text-decoration: none;
 }
 
+header {
+  font-family: "Raleway", sans-serif;
+}
+
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 50px;
+  padding: 20px;
+}
+
+nav > div > img {
+  width: 110px;
 }
 
 nav > ul {
   display: flex;
-  gap: 50px;
+  gap: 30px;
   list-style: none;
+}
+
+main {
+  font-family: "Open Sans", sans-serif;
+  margin-top: 50px;
+}
+
+.hero {
+  background: url("./images/bg-curvy-mobile.svg");
+  background-repeat: no-repeat;
+  background-size: 180%;
+  background-position: bottom;
+}
+
+.hero-image > img {
+  width: 70%;
+  margin: auto;
+}
+
+.hero-content {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.hero-content > h1 {
+  font-size: 32px;
+  width: 85%;
+  margin: auto;
+}
+
+.hero-content > p {
+  margin: auto;
+  width: 70%;
+  margin-top: 30px;
+  font-size: 18px;
+}
+
+.hero-content > button {
+  width: 65%;
+  display: block;
+  margin: auto;
+  margin-top: 30px;
+  padding: 20px 15px;
+  font-size: 18px;
+  color: #fff;
+  background: #65e2d9;
+  border-radius: 40px;
+  border: none;
+  background: linear-gradient(
+    90deg,
+    rgba(101, 226, 217, 1) 0%,
+    rgba(51, 158, 204, 1) 63%,
+    rgba(51, 158, 204, 1) 74%
+  );
+}
+
+.features {
+  background-color: hsl(218, 28%, 13%);
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+}
+
+.features > section {
+  text-align: center;
+  width: 80%;
+  margin: auto;
+}
+
+.features > section > img {
+  display: block;
+  margin: auto;
+}
+
+.features > section > h3 {
+  font-size: 22px;
+  margin-top: 40px;
 }
