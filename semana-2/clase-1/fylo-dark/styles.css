@@ -37,6 +37,7 @@ nav > ul {
 main {
   font-family: "Open Sans", sans-serif;
   margin-top: 50px;
+  padding-bottom: 100px;
 }
 
 .hero {
@@ -110,4 +111,40 @@ main {
 .features > section > h3 {
   font-size: 22px;
   margin-top: 40px;
+}
+
+.productive {
+  background-color: hsl(218, 28%, 13%);
+  padding-top: 100px;
+}
+
+.productive > img {
+  width: 70%;
+  margin: auto;
+}
+
+.productive > div {
+  margin: auto;
+  width: 90%;
+  padding-top: 30px;
+}
+
+.productive > div > h3 {
+  font-size: 24px;
+}
+
+.productive > div > p {
+  font-size: 18px;
+}
+
+.productive > div > a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  margin-top: 20px;
+  color: #65e2d9;
+  border-bottom: 2px solid #65e2d9;
+  width: 35%;
+  line-height: 2;
 }
