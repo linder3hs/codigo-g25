@@ -4,10 +4,6 @@ body {
   background-color: hsl(218, 28%, 13%);
 }
 
-header {
-  background-color: hsl(217, 28%, 15%);
-}
-
 button {
   font-family: "Open Sans", sans-serif;
 }
@@ -19,20 +15,21 @@ a {
 
 header {
   font-family: "Raleway", sans-serif;
+  background-color: hsl(217, 28%, 15%);
 }
 
-nav {
+.menu {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
 }
 
-nav > div > img {
+.menu > div > img {
   width: 110px;
 }
 
-nav > ul {
+.menu > ul {
   display: flex;
   gap: 30px;
   list-style: none;
@@ -246,6 +243,45 @@ main {
 }
 
 footer {
-  padding-top: 300px;
+  padding-top: 350px;
+  padding-bottom: 100px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-family: "Open Sans", sans-serif;
   background-color: hsl(216, 53%, 9%);
+}
+
+.info-container {
+  margin-top: 50px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.info-container > a {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu-footer {
+  margin-top: 30px;
+}
+
+.menu-footer > ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 15px;
+  padding: 0;
+  margin-top: 35px;
+}
+
+.social-media-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 35px;
 }
