@@ -7,6 +7,21 @@ const content2 = document.querySelector(".parrafo");
 const btnMenu = document.querySelector("#menu");
 const menuContainer = document.querySelector(".menu-container");
 
+const btnAddComment = document.querySelector("#btn-add-comment");
+const commentsContainer = document.querySelector("#comments-container");
+
+btnAddComment.addEventListener("click", function () {
+  const comment = prompt("Ingresa un comentario");
+
+  // validacion que se ejecuta cuando comment esta vacio
+  if (comment === "") return;
+
+  const text = document.createElement("p");
+  text.textContent = comment;
+
+  commentsContainer.appendChild(text);
+});
+
 btnMenu.addEventListener("click", function () {
   if (menuContainer.classList.contains("hidden")) {
     menuContainer.classList.remove("hidden");
