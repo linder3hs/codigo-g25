@@ -1,4 +1,5 @@
 const form = document.querySelector("form");
+const taskCount = document.getElementById("task-count");
 
 const notyf = new Notyf({
   position: {
@@ -40,4 +41,21 @@ form.addEventListener("submit", function (event) {
   this.reset();
   // 2. Mostramos una notificacion
   notyf.success("Tarea creada correctamente");
+
+  countCreatedTask();
 });
+
+/**
+ * Por ahora vamos a llamar a esta funcion 2 veces
+ * 1. Crear una tarea
+ * 2. Cuand iniciamos la web
+ */
+function countCreatedTask() {
+  const createdFilter = tasks.filter(function (task) {
+    return task.status === 1;
+  });
+
+  taskCount.textContent = createdFilter.length;
+}
+
+countCreatedTask();
