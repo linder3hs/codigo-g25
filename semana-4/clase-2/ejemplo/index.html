@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- aquí -->
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>Registro de usuario</h1>
+      <!-- event: submit -->
+      <form>
+        <div>
+          <label for="username">Nombre de usuario</label>
+          <input
+            id="username"
+            type="text"
+            placeholder="Ejm: linder3hs"
+            name="username"
+            required
+          />
+        </div>
+        <div>
+          <label for="mail">Email</label>
+          <input
+            id="mail"
+            type="email"
+            placeholder="Ejm: linder@gmail.com"
+            name="mail"
+          />
+        </div>
+        <div>
+          <label for="input-password">Password</label>
+          <input
+            id="input-password"
+            type="password"
+            placeholder="Ingresa un password"
+            name="password"
+          />
+        </div>
+        <div>
+          <label for="input-phone">Celular</label>
+          <input
+            id="input-phone"
+            type="number"
+            placeholder="Ejem: 99999999"
+            name="phone-number"
+          />
+        </div>
+        <div>
+          <button type="submit">Enviar</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
