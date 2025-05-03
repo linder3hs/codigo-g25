@@ -1,4 +1,6 @@
-const form = document.querySelector("form");
+const newTaskForm = document.querySelector("#form-create");
+const updateTaskForm = document.querySelector("#form-update");
+const inputUpdateTask = document.querySelector("#input-update-task");
 
 const taskCount = document.getElementById("task-count");
 const taskList = document.querySelector("#tasks-list");
@@ -26,7 +28,7 @@ const notyf = new Notyf({
  */
 const tasks = [];
 
-form.addEventListener("submit", function (event) {
+newTaskForm.addEventListener("submit", function (event) {
   // evitar el comportamiento por defecto
   event.preventDefault();
 
@@ -63,6 +65,16 @@ function countCreatedTask() {
   taskCount.textContent = createdFilter.length;
 }
 
+function handleEdit(id) {
+  // busqueda por id -> la busqueda sera en el arreglo tasks
+  const searchedTask = tasks.find(function (task) {
+    return task.id === id;
+  });
+  console.log(searchedTask);
+  inputUpdateTask.value = searchedTask.task;
+  inputUpdateTask.focus();
+}
+
 function createElementTask(newTask) {
   const html = `<div
               class="list-group-item list-group-item-action p-0 mb-3 border rounded-3 shadow-sm"
@@ -91,6 +103,7 @@ function createElementTask(newTask) {
                   class="btn btn-outline-primary btn-sm me-2"
                   data-bs-toggle="modal"
                   data-bs-target="#editModal"
+                  onclick="handleEdit(${newTask.id})"
                 >
                   <i class="bi bi-pencil"></i> Editar
                 </button>
