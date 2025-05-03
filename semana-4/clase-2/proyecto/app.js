@@ -1,6 +1,7 @@
 const newTaskForm = document.querySelector("#form-create");
 const updateTaskForm = document.querySelector("#form-update");
 const inputUpdateTask = document.querySelector("#input-update-task");
+const taskId = document.querySelector("#task-id");
 
 const taskCount = document.getElementById("task-count");
 const taskList = document.querySelector("#tasks-list");
@@ -52,6 +53,22 @@ newTaskForm.addEventListener("submit", function (event) {
   countCreatedTask();
 });
 
+updateTaskForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const formData = new FormData(this);
+  const id = Number(formData.get("task-id"));
+  const newTask = formData.get("task");
+
+  // vamos a volver a buscar por id
+  const searchedTask = tasks.find(function (task) {
+    return task.id === id;
+  });
+  // Estamos cambiando el texto anterior por el nuevo
+  searchedTask.task = newTask;
+  // vamos a agregar una nueva propiedad updated_at
+  searchedTask.updated_at = new Date();
+});
+
 /**
  * Por ahora vamos a llamar a esta funcion 2 veces
  * 1. Crear una tarea
@@ -72,6 +89,7 @@ function handleEdit(id) {
   });
   console.log(searchedTask);
   inputUpdateTask.value = searchedTask.task;
+  taskId.value = searchedTask.id;
   inputUpdateTask.focus();
 }
 
