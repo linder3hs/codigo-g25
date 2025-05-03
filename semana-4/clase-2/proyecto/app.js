@@ -105,6 +105,18 @@ function renderTasks() {
   }
 }
 
+function handleCheckTask(element, id) {
+  console.log(element.checked, id);
+  if (element.checked) {
+    const searchedTask = tasks.find(function (task) {
+      return task.id === id;
+    });
+
+    searchedTask.status = 2;
+    searchedTask.updated_at = new Date();
+  }
+}
+
 function createElementTask(newTask) {
   const html = `<div
               class="list-group-item list-group-item-action p-0 mb-3 border rounded-3 shadow-sm"
@@ -114,7 +126,7 @@ function createElementTask(newTask) {
                   <input
                     class="form-check-input"
                     type="checkbox"
-                    value=""
+                    onchange="handleCheckTask(this, ${newTask.id})"
                     id="task1"
                   />
                 </div>
