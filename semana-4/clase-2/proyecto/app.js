@@ -115,6 +115,8 @@ function handleCheckTask(element, id) {
     searchedTask.status = 2;
     searchedTask.updated_at = new Date();
   }
+
+  renderTasks();
 }
 
 function createElementTask(newTask) {
@@ -122,7 +124,9 @@ function createElementTask(newTask) {
               class="list-group-item list-group-item-action p-0 mb-3 border rounded-3 shadow-sm"
             >
               <div class="d-flex p-3">
-                <div class="form-check me-2">
+                <div class="${
+                  newTask.status === 2 ? "d-none " : ""
+                }form-check me-2">
                   <input
                     class="form-check-input"
                     type="checkbox"
@@ -131,14 +135,18 @@ function createElementTask(newTask) {
                   />
                 </div>
                 <div class="flex-grow-1">
-                  <h5 class="mb-1 fw-semibold">${newTask.task}</h5>
+                  <h5 class="mb-1 fw-semibold ${
+                    newTask.status === 2 ? "text-decoration-line-through" : ""
+                  }">${newTask.task}</h5>
                   <small class="text-muted">
                     <i class="bi bi-calendar3 me-1"></i> ${newTask.created_at}
                   </small>
                 </div>
               </div>
               <div
-                class="card-footer bg-light p-2 d-flex justify-content-end border-top"
+                class="card-footer bg-light p-2 d-flex justify-content-end border-top ${
+                  newTask.status === 2 ? "d-none" : ""
+                }"
               >
                 <button
                   type="button"
