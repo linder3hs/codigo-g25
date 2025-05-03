@@ -2,6 +2,7 @@ const newTaskForm = document.querySelector("#form-create");
 const updateTaskForm = document.querySelector("#form-update");
 const inputUpdateTask = document.querySelector("#input-update-task");
 const taskId = document.querySelector("#task-id");
+const editModal = document.querySelector("#editModal");
 
 const taskCount = document.getElementById("task-count");
 const taskList = document.querySelector("#tasks-list");
@@ -67,6 +68,11 @@ updateTaskForm.addEventListener("submit", function (event) {
   searchedTask.task = newTask;
   // vamos a agregar una nueva propiedad updated_at
   searchedTask.updated_at = new Date();
+
+  const modal = bootstrap.Modal.getInstance(editModal);
+  modal.hide();
+  renderTasks();
+  notyf.success("Tarea actualizada correctamente");
 });
 
 /**
@@ -87,10 +93,16 @@ function handleEdit(id) {
   const searchedTask = tasks.find(function (task) {
     return task.id === id;
   });
-  console.log(searchedTask);
   inputUpdateTask.value = searchedTask.task;
   taskId.value = searchedTask.id;
   inputUpdateTask.focus();
+}
+
+function renderTasks() {
+  taskList.innerHTML = "";
+  for (let task of tasks) {
+    createElementTask(task);
+  }
 }
 
 function createElementTask(newTask) {
