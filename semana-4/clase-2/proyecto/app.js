@@ -33,6 +33,7 @@ form.addEventListener("submit", function (event) {
   const formData = new FormData(this);
   const task = formData.get("task");
   const newTask = {
+    id: tasks.length + 1,
     task,
     created_at: new Date(),
     status: 1,
@@ -88,6 +89,8 @@ function createElementTask(newTask) {
                 <button
                   type="button"
                   class="btn btn-outline-primary btn-sm me-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editModal"
                 >
                   <i class="bi bi-pencil"></i> Editar
                 </button>
