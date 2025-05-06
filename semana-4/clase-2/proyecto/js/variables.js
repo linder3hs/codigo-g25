@@ -21,3 +21,6 @@ const taskCount = document.getElementById("task-count");
 
 // container tasks
 const taskList = document.querySelector("#tasks-list");
+
+// array de tareas global
+let tasks = [];
