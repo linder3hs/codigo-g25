@@ -45,9 +45,7 @@ updateTaskForm.addEventListener("submit", function (event) {
   const newTask = formData.get("task");
 
   // vamos a volver a buscar por id
-  const searchedTask = tasks.find(function (task) {
-    return task.id === id;
-  });
+  const searchedTask = searchOneTaskById(id);
   // Estamos cambiando el texto anterior por el nuevo
   searchedTask.task = newTask;
   // vamos a agregar una nueva propiedad updated_at

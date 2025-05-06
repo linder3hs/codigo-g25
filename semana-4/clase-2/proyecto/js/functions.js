@@ -75,9 +75,7 @@ function renderTasks() {
  */
 function handleEdit(id) {
   // busqueda por id -> la busqueda sera en el arreglo tasks
-  const searchedTask = tasks.find(function (task) {
-    return task.id === id;
-  });
+  const searchedTask = searchOneTaskById(id);
   inputUpdateTask.value = searchedTask.task;
   taskId.value = searchedTask.id;
   inputUpdateTask.focus();
@@ -86,9 +84,7 @@ function handleEdit(id) {
 function handleCheckTask(element, id) {
   console.log(element.checked, id);
   if (element.checked) {
-    const searchedTask = tasks.find(function (task) {
-      return task.id === id;
-    });
+    const searchedTask = searchOneTaskById(id);
 
     searchedTask.status = 2;
     searchedTask.updated_at = new Date();
