@@ -1,14 +1,3 @@
-const newTaskForm = document.querySelector("#form-create");
-const updateTaskForm = document.querySelector("#form-update");
-const inputUpdateTask = document.querySelector("#input-update-task");
-const taskId = document.querySelector("#task-id");
-const editModal = document.querySelector("#editModal");
-
-const btnDeleteModal = document.querySelector("#btn-delete-modal");
-
-const taskCount = document.getElementById("task-count");
-const taskList = document.querySelector("#tasks-list");
-
 const notyf = new Notyf({
   position: {
     x: "right",
@@ -30,7 +19,7 @@ const notyf = new Notyf({
     status: 1
   }
  */
-const tasks = [];
+let tasks = [];
 
 newTaskForm.addEventListener("submit", function (event) {
   // evitar el comportamiento por defecto
@@ -54,6 +43,22 @@ newTaskForm.addEventListener("submit", function (event) {
   notyf.success("Tarea creada correctamente");
 
   countCreatedTask();
+});
+
+btnDeleteModal.addEventListener("click", function () {
+  // aca vamos a poder obtener el id
+  const id = Number(this.dataset.id);
+
+  tasks = tasks.filter(function (task) {
+    return task.id !== id;
+  });
+
+  renderTasks();
+
+  const modal = bootstrap.Modal.getInstance(deleteModal);
+  modal.hide();
+
+  notyf.success("Se elimino la tarea correctamente!");
 });
 
 updateTaskForm.addEventListener("submit", function (event) {
