@@ -1,9 +1,3 @@
-const notyf = new Notyf({
-  position: {
-    x: "right",
-    y: "top",
-  },
-});
 /**
  * Este arreglo va a contener la lista de las tareas que creemos
  *
@@ -40,7 +34,7 @@ newTaskForm.addEventListener("submit", function (event) {
   // 1. Limpio el form
   this.reset();
   // 2. Mostramos una notificacion
-  notyf.success("Tarea creada correctamente");
+  success("Tarea creada correctamente");
 
   countCreatedTask();
 });
@@ -58,7 +52,7 @@ btnDeleteModal.addEventListener("click", function () {
   const modal = bootstrap.Modal.getInstance(deleteModal);
   modal.hide();
 
-  notyf.success("Se elimino la tarea correctamente!");
+  success("Se elimino la tarea correctamente!");
 });
 
 updateTaskForm.addEventListener("submit", function (event) {
@@ -79,7 +73,7 @@ updateTaskForm.addEventListener("submit", function (event) {
   const modal = bootstrap.Modal.getInstance(editModal);
   modal.hide();
   renderTasks();
-  notyf.success("Tarea actualizada correctamente");
+  success("Tarea actualizada correctamente");
 });
 
 /**
