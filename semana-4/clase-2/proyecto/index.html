@@ -75,7 +75,36 @@
     </div>
 
     <div
-      class="modal face"
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      aria-labelledby="deleteModal"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p>
+              ¿Estas seguro de eliminar esta tarea?, esta acción es irreversible
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button id="btn-delete-modal" class="btn btn-primary">
+              Si, eliminar
+            </button>
+            <button
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            >
+              No, continuar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
       id="editModal"
       tabindex="-1"
       aria-labelledby="editModal"

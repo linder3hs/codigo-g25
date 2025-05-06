@@ -4,6 +4,8 @@ const inputUpdateTask = document.querySelector("#input-update-task");
 const taskId = document.querySelector("#task-id");
 const editModal = document.querySelector("#editModal");
 
+const btnDeleteModal = document.querySelector("#btn-delete-modal");
+
 const taskCount = document.getElementById("task-count");
 const taskList = document.querySelector("#tasks-list");
 
@@ -119,6 +121,11 @@ function handleCheckTask(element, id) {
   renderTasks();
 }
 
+function handleDelete(id) {
+  console.log(id);
+  btnDeleteModal.dataset.id = id; // data-id
+}
+
 function createElementTask(newTask) {
   const html = `<div
               class="list-group-item list-group-item-action p-0 mb-3 border rounded-3 shadow-sm"
@@ -157,7 +164,13 @@ function createElementTask(newTask) {
                 >
                   <i class="bi bi-pencil"></i> Editar
                 </button>
-                <button type="button" class="btn btn-outline-danger btn-sm">
+                <button
+                  type="button"
+                  onclick="handleDelete(${newTask.id})"
+                  class="btn btn-outline-danger btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#deleteModal"
+                >
                   <i class="bi bi-trash"></i> Eliminar
                 </button>
               </div>
