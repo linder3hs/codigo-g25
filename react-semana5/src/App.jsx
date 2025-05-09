@@ -1,50 +1,50 @@
-import { useState } from "react";
-// Para manajer variables dentro de nuestro componente es necesario usar el hook useState
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import { useEffect, useState } from "react";
 
-function App() {
-  const items = [
-    "Inicio",
-    "Proyectos",
-    "Contacto",
-    "Info",
-    "Equipo",
-    "Testimonios",
-  ];
+export default function App() {
+  const [pokemons, setPokemons] = useState([]);
 
-  const [contador, setContador] = useState(100);
-  // arrow funcion
-  // function aumentar() {
-  //   // aumente el valor de 1 en 1
-  //   setContador(contador + 1);
-  // }
-  const aumentar = () => {
-    setContador(contador + 1);
+  const getPokemons = async () => {
+    try {
+      const url = "https://pokeapi.co/api/v2/pokemon/";
+
+      const response = await fetch(url);
+
+      if (response.ok === false) {
+        // forzar el llamado al error
+        throw new Error("Error del Servidor");
+      }
+
+      const data = await response.json();
+
+      console.log(data);
+      setPokemons(data.results);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // seguimos con el codigo
   };
 
-  const disminuir = () => {
-    setContador(contador - 1);
-  };
+  useEffect(() => {
+    getPokemons();
+  }, []);
 
   return (
     <main>
-      {/* usamos atributos para que el padre le envie un valor al hijo */}
-      <Header
-        fullname={"Linder Hassinger"}
-        address={"av mi casa 123"}
-        phone={99999}
-        items={items}
-      />
-      <section>
-        <h1>Mi primera web con React {contador} </h1>
-        {/* solo se llama de esta manera si la funcion no requiere parametros */}
-        <button onClick={aumentar}>Aumentar {contador} </button>
-        <button onClick={disminuir}>Disminuir {contador} </button>
+      <section className="text-center">
+        <h1 className="text-red-500 xl:text-green-500 text-3xl my-5">
+          PokeApi
+        </h1>
       </section>
-      <Footer />
+      <section className="pokemons-container">
+        {pokemons.map((pokemon) => (
+          <div className="border border-gray-300 p-5 rounded-md">
+            <h3 className="text-center capitalize text-lg font-semibold">
+              {pokemon.name}
+            </h3>
+          </div>
+        ))}
+      </section>
     </main>
   );
 }
-
-export default App;
