@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [pokemons, setPokemons] = useState([]);
@@ -33,7 +34,8 @@ export default function Home() {
       </section>
       <section className="pokemons-container">
         {pokemons.map((pokemon, index) => (
-          <div
+          <Link
+            to={`/pokemon/${pokemon.name}`}
             key={index}
             className="border border-gray-300 p-5 rounded-md flex flex-col items-center"
           >
@@ -47,7 +49,7 @@ export default function Home() {
             <h3 className="text-center capitalize text-xl font-semibold">
               {pokemon.name}
             </h3>
-          </div>
+          </Link>
         ))}
       </section>
     </main>
