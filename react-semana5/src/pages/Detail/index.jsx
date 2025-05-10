@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import arrowBack from "../../assets/arrow_back.svg";
+import straighten from "../../assets/straighten.svg";
+import weight from "../../assets/weight.svg";
 
 export default function Detail() {
   const { pokemonName } = useParams();
@@ -37,7 +39,9 @@ export default function Detail() {
               <h1 className="font-bold capitalize text-2xl">{pokemon.name}</h1>
             </div>
             <div>
-              <p className="font-semibold"># {pokemon.id}</p>
+              <p className="font-semibold">
+                # {String(pokemon.id).padStart(3, 0)}
+              </p>
             </div>
           </div>
           <div className="mx-2 bg-white p-5 rounded-xl relative mt-40">
@@ -62,15 +66,28 @@ export default function Detail() {
               </div>
               <section className="mt-8">
                 <h4 className="text-center text-orange-400 font-bold">About</h4>
-                <section className="mt-4 flex justify-between text-center">
+                <section className="mt-4 flex justify-between text-sm font-light text-center">
                   <div className="flex-1">
-                    <p>Weight</p>
+                    <p className="flex justify-center gap-2 items-center">
+                      <img width={16} src={weight} alt="" />
+                      <span>{pokemon.weight} kg</span>
+                    </p>
+                    <p className="mt-4">Weight</p>
                   </div>
                   <div className="border-x flex-1 border-gray-300">
-                    <p>Height</p>
+                    <p className="flex justify-center gap-2 items-center">
+                      <img width={16} src={straighten} alt="" />
+                      <span>{pokemon.height / 10} m</span>
+                    </p>
+                    <p className="mt-4">Height</p>
                   </div>
                   <div className="flex-1">
-                    <p>Moves</p>
+                    <p>
+                      {pokemon.moves.splice(0, 2).map((item) => (
+                        <p className="text-xs capitalize">{item.move.name}</p>
+                      ))}
+                    </p>
+                    <p className="mt-1">Moves</p>
                   </div>
                 </section>
               </section>
