@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 
-export default function usePokemon() {
+export default function usePokemon(pokemonName = "") {
+  // Lista de pokemones (Home)
   const [pokemons, setPokemons] = useState([]);
+  // Detalle del pokemon (Detail)
+  const [pokemon, setPokemon] = useState(null);
 
   const getPokemons = async () => {
     try {
-      const url = "https://pokeapi.co/api/v2/pokemon/";
+      const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
       const response = await fetch(url);
 
       if (response.ok === false) {
@@ -14,8 +17,11 @@ export default function usePokemon() {
       }
 
       const data = await response.json();
-      console.log({ data });
-      setPokemons(data.results);
+      if (pokemonName === "") {
+        setPokemons(data.results);
+      } else {
+        setPokemon(data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -27,5 +33,6 @@ export default function usePokemon() {
 
   return {
     pokemons,
+    pokemon,
   };
 }

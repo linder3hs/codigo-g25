@@ -3,31 +3,12 @@ import { useParams } from "react-router-dom";
 import arrowBack from "../../assets/arrow_back.svg";
 import straighten from "../../assets/straighten.svg";
 import weight from "../../assets/weight.svg";
+import usePokemon from "../../hooks/usePokemon";
 
 export default function Detail() {
   const { pokemonName } = useParams();
 
-  const [pokemon, setPokemon] = useState(null);
-
-  const fetchPokemonData = async () => {
-    try {
-      const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName}`;
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error("Error en el servidor");
-      }
-
-      const data = await response.json();
-      setPokemon(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPokemonData();
-  }, []);
+  const { pokemon } = usePokemon(pokemonName);
 
   return (
     <section className="bg-orange-400 min-h-screen">
