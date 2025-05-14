@@ -2,6 +2,7 @@ import straighten from "@/assets/straighten.svg";
 import weight from "@/assets/weight.svg";
 import PokemonHeader from "./PokemonHeader";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function PokemonItem(props) {
   const { pokemon } = props;
@@ -21,12 +22,9 @@ export default function PokemonItem(props) {
         <div className="mt-10">
           <div className="flex justify-center gap-5">
             {pokemon.types.map((item, index) => (
-              <p
-                key={index}
-                className="bg-orange-400 py-1 px-2 text-white font-semibold capitalize rounded-xl"
-              >
+              <Badge className="px-3 py-2 capitalize" variant={item.type.name}>
                 {item.type.name}
-              </p>
+              </Badge>
             ))}
           </div>
           <section className="mt-8">
