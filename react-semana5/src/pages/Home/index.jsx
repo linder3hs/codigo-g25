@@ -1,29 +1,8 @@
-import { useEffect, useState } from "react";
+import usePokemon from "../../hooks/usePokemon";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-  const [pokemons, setPokemons] = useState([]);
-
-  const getPokemons = async () => {
-    try {
-      const url = "https://pokeapi.co/api/v2/pokemon/";
-      const response = await fetch(url);
-
-      if (response.ok === false) {
-        // forzar el llamado al error
-        throw new Error("Error del Servidor");
-      }
-
-      const data = await response.json();
-      setPokemons(data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getPokemons();
-  }, []);
+  const { pokemons } = usePokemon();
 
   return (
     <main>
