@@ -1,6 +1,7 @@
 import straighten from "@/assets/straighten.svg";
 import weight from "@/assets/weight.svg";
 import PokemonHeader from "./PokemonHeader";
+import { Card } from "@/components/ui/card";
 
 export default function PokemonItem(props) {
   const { pokemon } = props;
@@ -8,7 +9,7 @@ export default function PokemonItem(props) {
   return (
     <div className="max-w-lg mx-auto">
       <PokemonHeader pokemon={pokemon} />
-      <div className="mx-2 bg-white p-5 rounded-xl relative mt-40">
+      <Card className="mx-2 p-5 rounded-xl relative mt-40">
         <div className="flex justify-center max-h-[200px] right-0 left-0 mt-8 absolute -top-48 w-full">
           <img
             src={pokemon.sprites.other.dream_world.front_default}
@@ -58,7 +59,7 @@ export default function PokemonItem(props) {
             </section>
           </section>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }
