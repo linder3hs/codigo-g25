@@ -1,4 +1,4 @@
-import usePokemon from "../../hooks/usePokemon";
+import usePokemon from "@/hooks/usePokemon";
 import { Link } from "react-router-dom";
 
 export default function PokemonList() {

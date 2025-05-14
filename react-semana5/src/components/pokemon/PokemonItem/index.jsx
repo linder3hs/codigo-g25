@@ -1,5 +1,5 @@
-import straighten from "../../../assets/straighten.svg";
-import weight from "../../../assets/weight.svg";
+import straighten from "@/assets/straighten.svg";
+import weight from "@/assets/weight.svg";
 import PokemonHeader from "./PokemonHeader";
 
 export default function PokemonItem(props) {
