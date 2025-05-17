@@ -95,3 +95,5 @@ export const signUpWithEmail =
       return { success: false, error };
     }
   };
+
+export default authSlice.reducer;
