@@ -19,7 +19,9 @@ export async function signUpWithEmail(email, password, metadata) {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: metadata,
+      options: {
+        data: metadata,
+      },
     });
 
     console.log({ data, error });

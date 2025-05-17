@@ -1,13 +1,14 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { signUpWithEmail } from "@/services/supabase";
 
 export function SignUp() {
   const [values, setValues] = useState({
     name: "",
     lastname: "",
-    emai: "",
+    email: "",
     password: "",
   });
 
@@ -18,8 +19,14 @@ export function SignUp() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const { email, password, name, lastname } = values;
+
+    await signUpWithEmail(email, password, {
+      name,
+      lastname,
+    });
   };
 
   return (
