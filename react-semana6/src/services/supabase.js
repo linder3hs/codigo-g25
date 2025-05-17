@@ -29,3 +29,13 @@ export async function signUpWithEmail(email, password, metadata) {
     console.log(error);
   }
 }
+
+export async function getSession() {
+  try {
+    const { data, error } = await supabase.auth.getSession();
+
+    console.log({ data, error });
+  } catch (error) {
+    console.log(error);
+  }
+}
