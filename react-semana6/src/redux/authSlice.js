@@ -41,3 +41,57 @@ const authSlice = createSlice({
 });
 
 export const { setUser, setLoading, setError } = authSlice.actions;
+
+export const getSession = () => async (dispatch) => {
+  // cuando queramos obtener la session llamemos setLoading
+  // inicia la carga
+  dispatch(setLoading(true));
+  try {
+    const { data } = await supabase.auth.getSession();
+    dispatch(setUser(data.session?.user || null));
+  } catch (error) {
+    dispatch(setError(error));
+  }
+};
+
+export const login = (email, password) => async (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) throw error;
+
+    dispatch(setUser(data.user));
+
+    return { success: true, data };
+  } catch (error) {
+    dispatch(setError(error));
+    return { success: false, error };
+  }
+};
+
+export const signUpWithEmail =
+  (email, password, metadata) => async (dispatch) => {
+    dispatch(setLoading(true));
+
+    try {
+      const { data, error } = await supabase.auth.signUpWithEmail({
+        email,
+        password,
+        options: {
+          data: metadata,
+        },
+      });
+
+      if (error) throw error;
+
+      dispatch(setUser(data.user));
+      return { success: true, data };
+    } catch (error) {
+      dispatch(setError(error));
+      return { success: false, error };
+    }
+  };
