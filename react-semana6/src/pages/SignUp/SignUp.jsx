@@ -6,9 +6,11 @@ import { Link } from "react-router";
 import { signUpWithEmail } from "@/redux/authSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 export function SignUp() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [values, setValues] = useState({
     name: "",
@@ -49,6 +51,7 @@ export function SignUp() {
     }
 
     console.log({ response });
+    navigate("/login");
   };
 
   return (
