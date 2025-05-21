@@ -14,14 +14,21 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { Package, User, LogOut } from "lucide-react"; // íconos de lucide
-// import { logoutUser } from "@/redux/authSlice";
+import { logoutUser } from "@/redux/authSlice";
+import { toast } from "sonner";
 
 export function AppSidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    // dispatch(logoutUser());
+  const handleLogout = async () => {
+    const response = dispatch(logoutUser());
+
+    if (!response.success) {
+      toast.error(response.error.message);
+      return;
+    }
+
     navigate("/login");
   };
 
@@ -69,7 +76,7 @@ export function AppSidebar() {
           </SidebarGroup>
         </SidebarContent>
         <SidebarFooter className="text-xs text-muted-foreground text-center p-4">
-          © {new Date().getFullYear()} MiApp
+          © {new Date().getFullYear()} Mi Tiendita
         </SidebarFooter>
       </Sidebar>
     </SidebarProvider>

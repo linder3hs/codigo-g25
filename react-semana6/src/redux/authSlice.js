@@ -37,10 +37,15 @@ const authSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    clearUser: (state) => {
+      state.user = null;
+      state.loading = true;
+      state.error = null;
+    },
   },
 });
 
-export const { setUser, setLoading, setError } = authSlice.actions;
+export const { setUser, setLoading, setError, clearUser } = authSlice.actions;
 
 export const getSession = () => async (dispatch) => {
   // cuando queramos obtener la session llamemos setLoading
@@ -95,5 +100,16 @@ export const signUpWithEmail =
       return { success: false, error };
     }
   };
+
+export const logoutUser = () => async (dispatch) => {
+  try {
+    await supabase.auth.signOut();
+    dispatch(clearUser());
+    return { success: true };
+  } catch (error) {
+    dispatch(setError(error));
+    return { success: false, error };
+  }
+};
 
 export default authSlice.reducer;
