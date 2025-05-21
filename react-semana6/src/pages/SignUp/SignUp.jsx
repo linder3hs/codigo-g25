@@ -51,6 +51,7 @@ export function SignUp() {
     }
 
     console.log({ response });
+    toast.success("La cuenta fue creada, ahora inicie sesión.");
     navigate("/login");
   };
 
