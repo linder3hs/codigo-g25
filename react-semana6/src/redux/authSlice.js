@@ -5,7 +5,7 @@ import { supabase } from "@/services/supabase";
 // user => object, loading => bool, error => objecto
 const initialState = {
   user: null,
-  loading: false,
+  loading: true,
   error: null,
 };
 
