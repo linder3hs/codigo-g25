@@ -7,6 +7,7 @@ import { supabase } from "./services/supabase";
 import App from "./App.jsx";
 import { setUser } from "./redux/authSlice";
 
+// listener
 supabase.auth.onAuthStateChange((event, session) => {
   store.dispatch(setUser(session?.user || null));
 });

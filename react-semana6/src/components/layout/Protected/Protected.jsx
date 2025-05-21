@@ -1,15 +1,13 @@
-import { useEffect } from "react";
-import { getSession } from "@/services/supabase";
-import { Outlet } from "react-router";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router";
 
 export function Protected() {
-  const validateSession = async () => {
-    await getSession();
-  };
+  const { user } = useSelector((state) => state.auth); // {user: null, loading: false, error}
 
-  useEffect(() => {
-    validateSession();
-  }, []);
-
+  if (!user) {
+    // si user no existe vamos a redirigir al usuario al login
+    return <Navigate to="/login" replace />;
+  }
+  // el componente permitido
   return <Outlet />;
 }

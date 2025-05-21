@@ -78,7 +78,7 @@ export const signUpWithEmail =
     dispatch(setLoading(true));
 
     try {
-      const { data, error } = await supabase.auth.signUpWithEmail({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {

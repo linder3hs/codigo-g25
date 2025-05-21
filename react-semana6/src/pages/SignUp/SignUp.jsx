@@ -2,44 +2,73 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { signUpWithEmail } from "@/services/supabase";
+import { Link } from "react-router";
+import { signUpWithEmail } from "@/redux/authSlice";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 
 export function SignUp() {
+  const dispatch = useDispatch();
+
   const [values, setValues] = useState({
     name: "",
     lastname: "",
     email: "",
     password: "",
+    phone: "",
   });
 
   const handleInputChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value,
-    });
+    const { name, value } = event.target;
+
+    if (name === "phone") {
+      const numericValue = value.replace(/\D/g, ""); // Elimina todo lo que no sea número
+      if (numericValue.length <= 9) {
+        setValues({ ...values, [name]: numericValue });
+      }
+    } else {
+      setValues({ ...values, [name]: value });
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password, name, lastname } = values;
+    const { email, password, name, lastname, phone } = values;
 
-    await signUpWithEmail(email, password, {
-      name,
-      lastname,
-    });
+    const response = await dispatch(
+      signUpWithEmail(email, password, {
+        name,
+        lastname,
+        phone,
+      })
+    );
+    console.log(response);
+    if (!response.success) {
+      toast.error(String(response.error));
+      return;
+    }
+
+    console.log({ response });
   };
 
   return (
-    <section className="h-screen flex justify-center items-center border border-red-500">
-      <Card>
+    <section className="h-screen flex justify-center items-center bg-gray-50 px-4">
+      <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl">
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-1">
-              <h2 className="text-2xl font-semibold">Sign Up</h2>
-              <p>Registrate para poder acceder a tus compras!</p>
+            <div className="space-y-1 text-center">
+              <h2 className="text-3xl font-bold text-gray-800">Crear cuenta</h2>
+              <p className="text-sm text-gray-600">
+                Regístrate para acceder a tu historial de compras y más
+                beneficios.
+              </p>
             </div>
+
             <div className="space-y-1">
-              <label htmlFor="name" className="block">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Nombre
               </label>
               <Input
@@ -47,12 +76,15 @@ export function SignUp() {
                 type="text"
                 name="name"
                 onChange={handleInputChange}
-                placeholder="Name"
+                placeholder="Tu nombre"
               />
-              {/* <span className="text-xs text-red-500">Error</span> */}
             </div>
+
             <div className="space-y-1">
-              <label htmlFor="lastname" className="block">
+              <label
+                htmlFor="lastname"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Apellido
               </label>
               <Input
@@ -60,39 +92,75 @@ export function SignUp() {
                 type="text"
                 name="lastname"
                 onChange={handleInputChange}
-                placeholder="Lastname"
+                placeholder="Tu apellido"
               />
-              {/* <span className="text-xs text-red-500">Error</span> */}
             </div>
+
             <div className="space-y-1">
-              <label htmlFor="email" className="block">
-                Email
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Celular
+              </label>
+              <Input
+                id="phone"
+                name="phone"
+                type="text"
+                inputMode="numeric"
+                onChange={handleInputChange}
+                value={values.phone}
+                placeholder="Ej. 987654321"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Correo electrónico
               </label>
               <Input
                 id="email"
                 type="email"
                 name="email"
                 onChange={handleInputChange}
-                placeholder="example@gmail.com"
+                placeholder="tucorreo@ejemplo.com"
               />
-              {/* <span className="text-xs text-red-500">Error</span> */}
             </div>
+
             <div className="space-y-1">
-              <label htmlFor="password" className="block">
-                Password
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Contraseña
               </label>
               <Input
                 id="password"
                 name="password"
-                onChange={handleInputChange}
                 type="password"
+                onChange={handleInputChange}
+                placeholder="••••••••"
               />
             </div>
+
             <div>
               <Button className="w-full" type="submit">
-                Sign Up
+                Registrarse
               </Button>
             </div>
+
+            <p className="text-sm text-center text-gray-600">
+              ¿Ya tienes una cuenta?{" "}
+              <Link
+                to="/login"
+                className="text-blue-600 hover:underline font-medium"
+              >
+                Inicia sesión aquí
+              </Link>
+            </p>
           </form>
         </CardContent>
       </Card>

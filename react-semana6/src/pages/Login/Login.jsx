@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router";
 
 export function Login() {
   const [values, setValues] = useState({
@@ -22,16 +23,21 @@ export function Login() {
   };
 
   return (
-    <section className="h-screen flex justify-center items-center border border-red-500">
-      <Card>
+    <section className="h-screen flex justify-center items-center bg-gray-50">
+      <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl">
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-1">
-              <h2 className="text-2xl font-semibold">Login</h2>
-              <p>Ingresa tu correo y password para iniciar sesión.</p>
+              <h2 className="text-2xl font-semibold text-gray-800">Login</h2>
+              <p className="text-sm text-gray-600">
+                Ingresa tu correo y password para iniciar sesión.
+              </p>
             </div>
             <div className="space-y-1">
-              <label htmlFor="email" className="block">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Email
               </label>
               <Input
@@ -41,10 +47,12 @@ export function Login() {
                 onChange={handleInputChange}
                 placeholder="example@gmail.com"
               />
-              {/* <span className="text-xs text-red-500">Error</span> */}
             </div>
             <div className="space-y-1">
-              <label htmlFor="password" className="block">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <Input
@@ -59,6 +67,15 @@ export function Login() {
                 Login
               </Button>
             </div>
+            <p className="text-sm text-center text-gray-600">
+              ¿No tienes una cuenta?{" "}
+              <Link
+                to="/sign-up"
+                className="text-blue-600 hover:underline font-medium"
+              >
+                Regístrate aquí
+              </Link>
+            </p>
           </form>
         </CardContent>
       </Card>
