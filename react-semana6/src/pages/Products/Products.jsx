@@ -8,6 +8,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { uploadFile } from "@/services/supabase";
+import { toast } from "sonner";
 
 export function Products() {
   const [values, setValues] = useState({
@@ -30,10 +32,17 @@ export function Products() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(values);
+    const response = await uploadFile(values.image);
+    console.log(response);
+    if (!response.success) {
+      // toast.error(response.error);
+      return;
+    }
+
+    // console.log(response);
   };
 
   return (

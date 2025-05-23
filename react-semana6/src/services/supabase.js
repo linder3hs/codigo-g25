@@ -1,5 +1,4 @@
 import { createClient } from "@supabase/supabase-js";
-import { toast } from "sonner";
 
 export const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -18,9 +17,9 @@ export async function uploadFile(file, bucket = "products") {
     if (error) {
       throw error;
     }
-    console.log(data);
-    return data;
+
+    return { success: true, data };
   } catch (error) {
-    toast.error(error);
+    return { success: false, error };
   }
 }
