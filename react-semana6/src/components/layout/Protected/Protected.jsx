@@ -21,7 +21,7 @@ export function Protected() {
       </div>
 
       {/* Contenido centrado */}
-      <main className="flex-1 flex items-center justify-center bg-gray-50 p-4 overflow-y-auto">
+      <main className="flex-1 flex  bg-gray-50 p-4 overflow-y-auto">
         <Outlet />
       </main>
     </div>
