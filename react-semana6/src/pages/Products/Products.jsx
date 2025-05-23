@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { uploadFile } from "@/services/supabase";
+import { uploadFile, storeInTable } from "@/services/supabase";
 import { toast } from "sonner";
 
 export function Products() {
@@ -34,22 +34,31 @@ export function Products() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    // primero va a subir la imagen
     const response = await uploadFile(values.image);
-    console.log(response);
+
     if (!response.success) {
-      // toast.error(response.error);
+      toast.error(response.error.message);
       return;
     }
+    // el values tiene image como un File
+    // vamos a reemplazar el valor de values.image por el full path
+    values.image = response.data.fullPath;
+    const result = await storeInTable("products", values);
 
-    // console.log(response);
+    console.log(result);
+
+    if (!result.success) {
+      toast.error(result.error.message);
+      return;
+    }
   };
 
   return (
     <section>
       <div>
         <div>
-          <Dialog>
+          <Dialog open={open}>
             {/* para poder activar el dialog usamos DialogTrigger */}
             <DialogTrigger asChild>
               <Button>Crear Producto</Button>

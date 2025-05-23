@@ -5,6 +5,7 @@ export const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
+// Subir archivos
 export async function uploadFile(file, bucket = "products") {
   try {
     // nombre del archivo unico
@@ -13,6 +14,21 @@ export async function uploadFile(file, bucket = "products") {
     const { data, error } = await supabase.storage
       .from(bucket)
       .upload(fileName, file);
+
+    if (error) {
+      throw error;
+    }
+
+    return { success: true, data };
+  } catch (error) {
+    return { success: false, error };
+  }
+}
+
+// Crear registros en la db
+export async function storeInTable(table, body) {
+  try {
+    const { data, error } = await supabase.from(table).insert(body).select();
 
     if (error) {
       throw error;
