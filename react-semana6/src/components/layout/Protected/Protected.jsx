@@ -16,7 +16,7 @@ export function Protected() {
   return (
     <div className="flex h-screen">
       {/* Sidebar con ancho fijo */}
-      <div className="w-64 border-r">
+      <div>
         <AppSidebar />
       </div>
 

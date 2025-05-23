@@ -2,9 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -95,6 +93,7 @@ export function Products() {
                       placeholder="Imagen"
                       type="file"
                       onChange={handleInputChange}
+                      accept="image/png, image/gif, image/jpeg"
                     />
                   </div>
                 </div>
