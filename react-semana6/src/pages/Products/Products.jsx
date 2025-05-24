@@ -17,6 +17,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToggle } from "@/hooks/useToggle";
+import { DataTable } from "@/components/table";
+import { createColumnHelper } from "@tanstack/react-table";
 
 export function Products() {
   const { current, handleToggle } = useToggle(false);
@@ -25,6 +27,22 @@ export function Products() {
     useProductForm(handleToggle);
 
   const { data } = useGetCategoriesAndBrands();
+
+  const columnHelper = createColumnHelper();
+  const columns = [
+    columnHelper.accessor("id", {
+      header: "ID",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("name", {
+      header: "Nombre",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("price", {
+      header: "Precio",
+      cell: (info) => `S/ ${info.getValue()}`,
+    }),
+  ];
 
   return (
     <section>
@@ -122,6 +140,23 @@ export function Products() {
             </DialogContent>
           </Dialog>
         </div>
+      </div>
+      <div>
+        <DataTable
+          columns={columns}
+          data={[
+            {
+              id: 1,
+              name: "iPhone 16",
+              price: 1000,
+            },
+            {
+              id: 2,
+              name: "iPhone 14",
+              price: 1200,
+            },
+          ]}
+        />
       </div>
     </section>
   );
