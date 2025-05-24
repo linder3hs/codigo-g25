@@ -9,7 +9,6 @@ import { setUser } from "./redux/authSlice";
 
 // listener
 supabase.auth.onAuthStateChange((event, session) => {
-  console.log("main", { session });
   store.dispatch(setUser(session?.user || null));
 });
 

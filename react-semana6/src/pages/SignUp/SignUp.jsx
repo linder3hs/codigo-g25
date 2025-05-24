@@ -44,13 +44,12 @@ export function SignUp() {
         phone,
       })
     );
-    console.log(response);
+
     if (!response.success) {
       toast.error(String(response.error));
       return;
     }
 
-    console.log({ response });
     toast.success("La cuenta fue creada, ahora inicie sesión.");
     navigate("/login");
   };

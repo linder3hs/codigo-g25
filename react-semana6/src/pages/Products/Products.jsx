@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,57 +7,30 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { uploadFile, storeInTable } from "@/services/supabase";
-import { toast } from "sonner";
+import { useGetCategoriesAndBrands } from "@/hooks/useGetCategoriesAndBrands";
+import { useProductForm } from "@/hooks/useProductForm";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useToggle } from "@/hooks/useToggle";
 
 export function Products() {
-  const [values, setValues] = useState({
-    name: "",
-    description: "",
-    price: 0,
-    brand: "",
-    category: "",
-    image: null,
-  });
+  const { current, handleToggle } = useToggle(false);
 
-  const handleInputChange = (event) => {
-    // ... -> spread operator (crea una copia del objeto)
-    // event.target.name -> obtiene el valor del atributo name
-    // event.target.value -> obtiene el valor que el usuario esta escribiendo
-    const name = event.target.name;
-    setValues({
-      ...values,
-      [name]: name === "image" ? event.target.files[0] : event.target.value,
-    });
-  };
+  const { handleInputChange, handleSubmit, values } =
+    useProductForm(handleToggle);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // primero va a subir la imagen
-    const response = await uploadFile(values.image);
-
-    if (!response.success) {
-      toast.error(response.error.message);
-      return;
-    }
-    // el values tiene image como un File
-    // vamos a reemplazar el valor de values.image por el full path
-    values.image = response.data.fullPath;
-    const result = await storeInTable("products", values);
-
-    console.log(result);
-
-    if (!result.success) {
-      toast.error(result.error.message);
-      return;
-    }
-  };
+  const { data } = useGetCategoriesAndBrands();
 
   return (
     <section>
       <div>
         <div>
-          <Dialog open={open}>
+          <Dialog open={current} onOpenChange={handleToggle}>
             {/* para poder activar el dialog usamos DialogTrigger */}
             <DialogTrigger asChild>
               <Button>Crear Producto</Button>
@@ -92,18 +64,46 @@ export function Products() {
                     />
                   </div>
                   <div>
-                    <Input
-                      name="brand"
-                      placeholder="Marca"
-                      onChange={handleInputChange}
-                    />
+                    <Select
+                      value={values.brand}
+                      onValueChange={handleInputChange}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Selecciona una marca" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {data &&
+                          data?.brands?.map((brand) => (
+                            <SelectItem
+                              key={brand.id}
+                              value={`brand-${brand.id}`}
+                            >
+                              {brand.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div>
-                    <Input
-                      name="category"
-                      placeholder="Categoria"
-                      onChange={handleInputChange}
-                    />
+                    <Select
+                      value={values.category}
+                      onValueChange={handleInputChange}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Selecciona una categoría" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {data &&
+                          data?.categories?.map((category) => (
+                            <SelectItem
+                              key={category.id}
+                              value={`category-${category.id}`}
+                            >
+                              {category.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                   <div>
                     <Input

@@ -25,6 +25,20 @@ export async function uploadFile(file, bucket = "products") {
   }
 }
 
+export async function getDataFromTable(table) {
+  try {
+    const { data, error } = await supabase.from(table).select();
+
+    if (error) {
+      throw error;
+    }
+
+    return { success: true, data };
+  } catch (error) {
+    return { success: false, error };
+  }
+}
+
 // Crear registros en la db
 export async function storeInTable(table, body) {
   try {
