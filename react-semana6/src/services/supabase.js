@@ -25,9 +25,9 @@ export async function uploadFile(file, bucket = "products") {
   }
 }
 
-export async function getDataFromTable(table) {
+export async function getDataFromTable(table, select = "*") {
   try {
-    const { data, error } = await supabase.from(table).select();
+    const { data, error } = await supabase.from(table).select(select);
 
     if (error) {
       throw error;
