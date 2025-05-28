@@ -2,7 +2,7 @@ import { useState } from "react";
 import { uploadFile, storeInTable } from "@/services/supabase";
 import { toast } from "sonner";
 
-export function useProductForm(handleToggle) {
+export function useProductForm(handleToggle, fetchProducts) {
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -53,7 +53,10 @@ export function useProductForm(handleToggle) {
       toast.error(result.error.message);
       return;
     }
+    // cierra el modal
     handleToggle();
+    // traer el nuevo producto creado
+    fetchProducts();
     toast.success("Se creo el producto correctamente.");
   };
 

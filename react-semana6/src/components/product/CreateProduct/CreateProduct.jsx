@@ -18,11 +18,15 @@ import { useToggle } from "@/hooks/useToggle";
 import { useGetCategoriesAndBrands } from "@/hooks/useGetCategoriesAndBrands";
 import { useProductForm } from "@/hooks/useProductForm";
 
-export function CreateProduct() {
+export function CreateProduct(props) {
+  const { fetchProducts } = props;
+
   const { current, handleToggle } = useToggle(false);
 
-  const { handleInputChange, handleSubmit, values } =
-    useProductForm(handleToggle);
+  const { handleInputChange, handleSubmit, values } = useProductForm(
+    handleToggle,
+    fetchProducts
+  );
 
   const { data } = useGetCategoriesAndBrands();
 
