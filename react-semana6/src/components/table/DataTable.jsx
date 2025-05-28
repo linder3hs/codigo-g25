@@ -1,14 +1,24 @@
+import { useState } from "react";
 import {
   useReactTable,
-  getCoreRowModel,
   flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export function DataTable({ columns, data }) {
+  const [sorting, setSorting] = useState([]);
+
   const table = useReactTable({
     data,
     columns,
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
   });
 
   return (
@@ -20,12 +30,22 @@ export function DataTable({ columns, data }) {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="px-4 py-3 font-semibold text-gray-700 uppercase tracking-wider"
+                  className="px-4 py-3 font-semibold text-gray-700 tracking-wider"
                 >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
+                  <div
+                    className="flex items-center gap-1"
+                    onClick={header.column.getToggleSortingHandler()}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {header.column.getIsSorted() ? (
+                      <ChevronDown className="w-4 h-4" />
+                    ) : (
+                      <ChevronUp className="w-4 h-4" />
+                    )}
+                  </div>
                 </th>
               ))}
             </tr>
