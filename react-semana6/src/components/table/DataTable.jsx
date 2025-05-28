@@ -19,18 +19,21 @@ import {
 export function DataTable({ columns, data }) {
   const [sorting, setSorting] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
+  const [columnFilters, setColumnFilters] = useState([]);
 
   const table = useReactTable({
     data,
     columns,
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
       globalFilter,
+      columnFilters,
     },
   });
 
@@ -43,7 +46,7 @@ export function DataTable({ columns, data }) {
           className="max-w-sm"
           onChange={(event) => setGlobalFilter(event.target.value)}
         />
-        {globalFilter && (
+        {(globalFilter || columnFilters.length > 0) && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -51,6 +54,7 @@ export function DataTable({ columns, data }) {
                   variant="outline"
                   onClick={() => {
                     setGlobalFilter("");
+                    setColumnFilters([]);
                   }}
                 >
                   <FunnelX />
@@ -73,18 +77,32 @@ export function DataTable({ columns, data }) {
                     key={header.id}
                     className="px-4 py-3 font-semibold text-gray-700 tracking-wider"
                   >
-                    <div
-                      className="flex items-center gap-1"
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {header.column.getIsSorted() ? (
-                        <ChevronDown className="w-4 h-4" />
-                      ) : (
-                        <ChevronUp className="w-4 h-4" />
+                    <div className="space-y-2">
+                      <div
+                        className="flex items-center gap-1"
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {header.column.getIsSorted() ? (
+                          <ChevronDown className="w-4 h-4" />
+                        ) : (
+                          <ChevronUp className="w-4 h-4" />
+                        )}
+                      </div>
+                      {header.column.getCanFilter() && (
+                        <div>
+                          <Input
+                            className="h-7 text-xs"
+                            placeholder="Buscar..."
+                            value={header.column.getFilterValue() ?? ""}
+                            onChange={(event) => {
+                              header.column.setFilterValue(event.target.value);
+                            }}
+                          />
+                        </div>
                       )}
                     </div>
                   </th>

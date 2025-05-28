@@ -15,6 +15,7 @@ export function useGetProducts() {
       columnHelper.accessor("id", {
         header: "ID",
         cell: (info) => info.getValue(),
+        enableColumnFilter: false,
       }),
       columnHelper.accessor("name", {
         header: "Nombre",
@@ -24,13 +25,13 @@ export function useGetProducts() {
         header: "Descripción",
         cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("brands", {
+      columnHelper.accessor("brand", {
         header: "Marca",
-        cell: (info) => info.getValue().name,
+        cell: (info) => info.getValue(),
       }),
-      columnHelper.accessor("categories", {
+      columnHelper.accessor("category", {
         header: "Categoría",
-        cell: (info) => info.getValue().name,
+        cell: (info) => info.getValue(),
       }),
       columnHelper.accessor("price", {
         header: "Precio",
@@ -46,6 +47,7 @@ export function useGetProducts() {
             />
           </>
         ),
+        enableColumnFilter: false,
       }),
     ];
 
@@ -70,11 +72,23 @@ export function useGetProducts() {
         throw result.error;
       }
 
-      const columns = generateColumns();
+      const columns = generateColumns(result.data);
+
+      const mapProducts = result.data.map((product) => {
+        return {
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          brand: product.brands.name,
+          category: product.categories.name,
+          price: String(product.price),
+          image: product.image,
+        };
+      });
 
       setTableData({
         columns: columns,
-        data: result.data,
+        data: mapProducts,
       });
     } catch (error) {
       toast.error(error.message);
