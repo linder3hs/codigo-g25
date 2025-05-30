@@ -13,10 +13,11 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Outlet } from "react-router";
+import { useSelector } from "react-redux";
 
 export function MainLayout() {
+  const { products } = useSelector((state) => state.shoppingCart);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cart, _setCart] = useState([]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -42,7 +43,7 @@ export function MainLayout() {
                   variant="destructive"
                   className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center  text-white"
                 >
-                  {0}
+                  {products.length}
                 </Badge>
               </Button>
             </SheetTrigger>
@@ -56,7 +57,7 @@ export function MainLayout() {
 
               {/* Cart Items */}
               <div className="flex-1 overflow-hidden mt-6">
-                {cart.length === 0 ? (
+                {products.length === 0 ? (
                   <div className="h-full flex flex-col items-center justify-center text-center p-4">
                     <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
                       <ShoppingCart className="h-8 w-8 text-gray-400" />
@@ -77,7 +78,7 @@ export function MainLayout() {
                 ) : (
                   <ScrollArea className="h-[calc(100vh-220px)]">
                     <div className="space-y-4 pr-4">
-                      {cart.map((item) => (
+                      {products.map((item) => (
                         <div key={item.id} className="flex gap-4">
                           {/* Product Image */}
                           <div className="h-20 w-20 rounded-md border bg-gray-50 flex-shrink-0 overflow-hidden">
@@ -141,7 +142,7 @@ export function MainLayout() {
               </div>
 
               {/* Cart Footer */}
-              {cart.length > 0 && (
+              {products.length > 0 && (
                 <SheetFooter className="mt-auto pt-4">
                   <div className="w-full space-y-4">
                     <Separator />

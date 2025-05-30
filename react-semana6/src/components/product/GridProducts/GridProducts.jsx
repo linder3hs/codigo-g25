@@ -2,10 +2,25 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useGetProducts } from "@/hooks/useGetProducts";
-import { ShoppingCart, Star } from "lucide-react";
+import { Minus, Plus, ShoppingCart, Star } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { addProductToCart } from "@/redux/shoppingCartSlice";
 
 export function GridProducts() {
+  const dispatch = useDispatch();
+  const shoppingCart = useSelector((state) => state.shoppingCart);
+
+  console.log({ shoppingCart });
+
   const { tableData } = useGetProducts();
+
+  const handleAddProductToCart = (product) => {
+    dispatch(addProductToCart(product));
+  };
+
+  const validateProduct = (product) => {
+    return shoppingCart.products.find((item) => item.id === product.id);
+  };
 
   return (
     <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
@@ -58,13 +73,52 @@ export function GridProducts() {
           </CardContent>
 
           <CardFooter className="p-4 pt-0">
-            <Button
-              className="w-full bg-gray-900 hover:bg-gray-800 text-white transition-colors duration-200 group/btn"
-              size="sm"
-            >
-              <ShoppingCart className="h-4 w-4 mr-2 group-hover/btn:scale-110 transition-transform duration-200" />
-              Agregar al carrito
-            </Button>
+            {validateProduct(product) ? (
+              <div className="flex items-center gap-2 w-full">
+                {/* Decrease Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 w-8 p-0 border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                  // onClick={onDecrease}
+                  // disabled={disabled || quantity <= 1}
+                >
+                  <Minus className="h-3 w-3 text-gray-600" />
+                </Button>
+
+                {/* Quantity Display */}
+                <div className="flex-1 text-center">
+                  <div className="bg-gray-50 rounded-md py-1 px-2 border">
+                    <span className="text-sm font-medium text-gray-900">
+                      {validateProduct(product).quantity}
+                    </span>
+                    <span className="text-xs text-gray-500 ml-1">
+                      en carrito
+                    </span>
+                  </div>
+                </div>
+
+                {/* Increase Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 w-8 p-0 border-gray-300 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                  // onClick={onIncrease}
+                  // disabled={disabled}
+                >
+                  <Plus className="h-3 w-3 text-gray-600" />
+                </Button>
+              </div>
+            ) : (
+              <Button
+                className="w-full bg-gray-900 hover:bg-gray-800 text-white transition-colors duration-200 group/btn"
+                size="sm"
+                onClick={() => handleAddProductToCart(product)}
+              >
+                <ShoppingCart className="h-4 w-4 mr-2 group-hover/btn:scale-110 transition-transform duration-200" />
+                Agregar al carrito
+              </Button>
+            )}
           </CardFooter>
         </Card>
       ))}
