@@ -1,5 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { DialogContent } from "@/components/ui/dialog";
+import {
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { formatPrice } from "@/helpers/format";
 import { useToggle } from "@/hooks/useToggle";
@@ -8,11 +15,13 @@ import {
   incrementProductQuantity,
 } from "@/redux/shoppingCartSlice";
 import { Dialog } from "@radix-ui/react-dialog";
-import { ShoppingCart, Trash2, Minus, Plus } from "lucide-react";
+import { ShoppingCart, Trash2, Minus, Plus, AlertTriangle } from "lucide-react";
 import { useDispatch } from "react-redux";
 
 export function CartItems(props) {
   const { products, setIsCartOpen } = props;
+
+  const [productToDelete, setProductToDelete] = useState(null);
 
   const { current, handleToggle } = useToggle(false);
 
@@ -70,7 +79,10 @@ export function CartItems(props) {
                       <Button
                         variant="ghost"
                         size="icon"
-                        onClick={handleToggle}
+                        onClick={() => {
+                          handleToggle();
+                          setProductToDelete(item);
+                        }}
                         className="h-8 w-8 text-gray-400 hover:text-red-500 hover:bg-red-50"
                       >
                         <Trash2 className="h-4 w-4" />
@@ -144,8 +156,76 @@ export function CartItems(props) {
         </ScrollArea>
       )}
       <Dialog open={current} onOpenChange={handleToggle}>
-        <DialogContent>
-          <p>Eliminar producto del carrito?</p>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader className="text-center sm:text-left">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                <AlertTriangle className="w-5 h-5 text-red-600" />
+              </div>
+              <div className="flex-1">
+                <DialogTitle className="text-lg font-semibold text-gray-900">
+                  Eliminar producto
+                </DialogTitle>
+              </div>
+            </div>
+            <DialogDescription className="text-sm text-gray-600">
+              ¿Estás seguro de que deseas eliminar este producto de tu carrito?
+            </DialogDescription>
+          </DialogHeader>
+
+          {productToDelete && (
+            <div className="py-4">
+              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                <div className="w-12 h-12 rounded-md border bg-white flex-shrink-0 overflow-hidden">
+                  <img
+                    src={`https://cwlruitlkwtajppfrzek.supabase.co/storage/v1/object/public/${productToDelete.image}`}
+                    alt={productToDelete.name}
+                    className="w-full h-full object-contain p-1"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-medium text-gray-900 text-sm line-clamp-2">
+                    {productToDelete.name}
+                  </h4>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="text-xs text-gray-500">
+                      {productToDelete.brand}
+                    </span>
+                    <span className="text-xs text-gray-400">•</span>
+                    <span className="text-xs text-gray-500">
+                      Cantidad: {productToDelete.quantity}
+                    </span>
+                  </div>
+                  <div className="mt-1">
+                    <span className="text-sm font-semibold text-gray-900">
+                      {formatPrice(
+                        Number(productToDelete.price) *
+                          Number(productToDelete.quantity)
+                      )}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter className="flex-col-reverse sm:flex-row gap-2">
+            <Button
+              variant="outline"
+              onClick={handleToggle}
+              className="w-full sm:w-auto"
+            >
+              Cancelar
+            </Button>
+            <Button
+              variant="destructive"
+              // onClick={handleConfirmDelete}
+              className="w-full sm:w-auto bg-red-600 hover:bg-red-700"
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Eliminar producto
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
