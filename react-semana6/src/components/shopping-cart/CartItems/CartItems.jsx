@@ -13,6 +13,7 @@ import { useToggle } from "@/hooks/useToggle";
 import {
   descrementProductQuantity,
   incrementProductQuantity,
+  deleteProduct,
 } from "@/redux/shoppingCartSlice";
 import { Dialog } from "@radix-ui/react-dialog";
 import { ShoppingCart, Trash2, Minus, Plus, AlertTriangle } from "lucide-react";
@@ -20,6 +21,8 @@ import { useDispatch } from "react-redux";
 
 export function CartItems(props) {
   const { products, setIsCartOpen } = props;
+
+  console.log(products);
 
   const [productToDelete, setProductToDelete] = useState(null);
 
@@ -219,7 +222,10 @@ export function CartItems(props) {
             </Button>
             <Button
               variant="destructive"
-              // onClick={handleConfirmDelete}
+              onClick={() => {
+                dispatch(deleteProduct({ id: productToDelete.id }));
+                handleToggle();
+              }}
               className="w-full sm:w-auto bg-red-600 hover:bg-red-700"
             >
               <Trash2 className="w-4 h-4 mr-2" />

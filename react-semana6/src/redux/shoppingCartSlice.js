@@ -39,6 +39,11 @@ const shoppingCartSlice = createSlice({
       }
     },
     // funcion para eliminar el producto del carrito
+    deleteProduct: (state, action) => {
+      state.products = state.products.filter(
+        (product) => product.id !== action.payload.id
+      );
+    },
   },
 });
 
@@ -46,6 +51,7 @@ export const {
   addProductToCart,
   incrementProductQuantity,
   descrementProductQuantity,
+  deleteProduct,
 } = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;
