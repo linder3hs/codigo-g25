@@ -4,15 +4,17 @@ const initialState = {
   products: [],
 };
 
+const findProductById = (products, productId) => {
+  return products.products.find((product) => product.id === productId);
+};
+
 const shoppingCartSlice = createSlice({
   name: "shoppingCart",
   initialState,
   reducers: {
     addProductToCart: (state, action) => {
       // buscamos si el producto existe
-      const searchedProduct = state.products.find(
-        (product) => product.id === action.payload.id
-      );
+      const searchedProduct = findProductById(state, action.payload.id);
 
       if (!searchedProduct) {
         // no existe
@@ -22,9 +24,7 @@ const shoppingCartSlice = createSlice({
     },
     // function para sumar 1 a la cantidad
     incrementProductQuantity: (state, action) => {
-      const searchedProduct = state.products.find(
-        (product) => product.id === action.payload.id
-      );
+      const searchedProduct = findProductById(state, action.payload.id);
       // si existe
       if (searchedProduct) {
         searchedProduct.quantity++;
