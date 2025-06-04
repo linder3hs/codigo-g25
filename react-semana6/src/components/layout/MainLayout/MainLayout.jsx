@@ -12,12 +12,14 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 import { useSelector } from "react-redux";
 
 export function MainLayout() {
   const { products } = useSelector((state) => state.shoppingCart);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const total = products.reduce((prev, curr) => prev + Number(curr.price), 0);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -25,10 +27,12 @@ export function MainLayout() {
       <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <Store className="h-6 w-6 text-gray-900" />
-            <h1 className="text-xl font-bold text-gray-900">Mi Tiendita</h1>
-          </div>
+          <Link to={"/"}>
+            <div className="flex items-center gap-2">
+              <Store className="h-6 w-6 text-gray-900" />
+              <h1 className="text-xl font-bold text-gray-900">Mi Tiendita</h1>
+            </div>
+          </Link>
 
           {/* Cart Button */}
           <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
@@ -148,11 +152,14 @@ export function MainLayout() {
                     <Separator />
                     <div className="flex items-center justify-between">
                       <span className="font-medium">Subtotal</span>
-                      <span className="font-bold">S/ 100</span>
+                      <span className="font-bold">S/ {total}</span>
                     </div>
-                    <Button className="w-full bg-gray-900 hover:bg-gray-800">
-                      Proceder al pago
-                    </Button>
+                    <Link
+                      to={"/summary"}
+                      className="w-full block bg-gray-900 px-2 py-3 text-white rounded-md text-center hover:bg-gray-800"
+                    >
+                      Ir al resumen
+                    </Link>
                   </div>
                 </SheetFooter>
               )}

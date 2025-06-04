@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import { Home, Login, Products, SignUp } from "@/pages";
+import { Home, Login, Products, SignUp, Summary } from "@/pages";
 import { Protected } from "@/components/layout/Protected";
 import { MainLayout } from "@/components/layout/MainLayout/MainLayout";
 
@@ -8,11 +8,13 @@ export function Router() {
     <BrowserRouter>
       {/* rutas publicas */}
       <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
+
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/summary" element={<Summary />} />
+        </Route>
 
         {/* rutas privadas */}
         <Route element={<Protected />}>
