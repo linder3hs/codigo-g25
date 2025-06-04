@@ -8,9 +8,8 @@ import { addProductToCart } from "@/redux/shoppingCartSlice";
 
 export function GridProducts() {
   const dispatch = useDispatch();
-  const shoppingCart = useSelector((state) => state.shoppingCart);
 
-  console.log({ shoppingCart });
+  const shoppingCart = useSelector((state) => state.shoppingCart);
 
   const { tableData } = useGetProducts();
 

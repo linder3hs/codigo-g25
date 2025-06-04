@@ -31,11 +31,21 @@ const shoppingCartSlice = createSlice({
       }
     },
     // function para restar 1 a la cantidad
+    descrementProductQuantity: (state, action) => {
+      const searchedProduct = findProductById(state, action.payload.id);
+
+      if (searchedProduct && searchedProduct.quantity > 1) {
+        searchedProduct.quantity--;
+      }
+    },
     // funcion para eliminar el producto del carrito
   },
 });
 
-export const { addProductToCart, incrementProductQuantity } =
-  shoppingCartSlice.actions;
+export const {
+  addProductToCart,
+  incrementProductQuantity,
+  descrementProductQuantity,
+} = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;
