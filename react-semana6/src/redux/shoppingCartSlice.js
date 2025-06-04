@@ -20,9 +20,22 @@ const shoppingCartSlice = createSlice({
         state.products.push(action.payload);
       }
     },
+    // function para sumar 1 a la cantidad
+    incrementProductQuantity: (state, action) => {
+      const searchedProduct = state.products.find(
+        (product) => product.id === action.payload.id
+      );
+      // si existe
+      if (searchedProduct) {
+        searchedProduct.quantity++;
+      }
+    },
+    // function para restar 1 a la cantidad
+    // funcion para eliminar el producto del carrito
   },
 });
 
-export const { addProductToCart } = shoppingCartSlice.actions;
+export const { addProductToCart, incrementProductQuantity } =
+  shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;
