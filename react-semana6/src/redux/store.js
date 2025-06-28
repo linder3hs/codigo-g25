@@ -10,7 +10,7 @@ const persistConfig = {
   storage,
   version: 1,
   // lista de slices que persisten,
-  whitelist: ["shoppingCart"],
+  whitelist: ["shoppingCart", "auth"],
 };
 
 const rootReducer = combineReducers({

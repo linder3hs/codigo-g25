@@ -5,6 +5,7 @@ import { supabase } from "@/services/supabase";
 // user => object, loading => bool, error => objecto
 const initialState = {
   user: null,
+  access_token: null,
   loading: true,
   error: null,
 };
@@ -24,7 +25,9 @@ const authSlice = createSlice({
     // state: Es el estado actual, por defecto vale lo mismo que initialState
     // action: Es un objeto donde vamos a econtrar la data que el usuario envia
     setUser: (state, action) => {
-      state.user = action.payload;
+      // {user: {}, access_token: ""}
+      state.user = action.payload.user;
+      state.access_token = action.payload.access_token;
       // just in case, limpiamos el error
       state.error = null;
       state.loading = false;

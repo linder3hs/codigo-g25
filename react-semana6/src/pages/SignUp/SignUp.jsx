@@ -3,14 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router";
-import { signUpWithEmail } from "@/redux/authSlice";
-import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
 import { register } from "@/services/api";
 
 export function SignUp() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [values, setValues] = useState({
@@ -36,25 +33,17 @@ export function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password, name, lastname, phone } = values;
+    const { email, password, name, lastname } = values;
 
-    await register({ email, password, name, lastname });
+    const response = await register({ email, password, name, lastname });
 
-    // const response = await dispatch(
-    //   signUpWithEmail(email, password, {
-    //     name,
-    //     lastname,
-    //     phone,
-    //   })
-    // );
+    if (!response) {
+      toast("Hubo un error al autenticarnos");
+      return;
+    }
 
-    // if (!response.success) {
-    //   toast.error(String(response.error));
-    //   return;
-    // }
-
-    // toast.success("La cuenta fue creada, ahora inicie sesión.");
-    // navigate("/login");
+    toast.success("La cuenta fue creada, ahora inicie sesión.");
+    navigate("/login");
   };
 
   return (

@@ -1,3 +1,6 @@
+import { setUser } from "@/redux/authSlice";
+import { store } from "@/redux/store";
+
 const BASE_URL = "http://127.0.0.1:5000/api/v1";
 import { toast } from "sonner";
 /**
@@ -25,7 +28,17 @@ export async function register(body) {
 
     const data = await response.json();
     console.log({ data });
+
+    // guardamos la informacion en redux
+    store.dispatch(
+      setUser({
+        user: data.user.user,
+        access_token: data.user.access_token,
+      })
+    );
+    return true;
   } catch (error) {
     toast.error(`Error: ${error}`);
+    return false;
   }
 }
