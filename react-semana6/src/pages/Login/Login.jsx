@@ -3,13 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router";
-import { login } from "@/redux/authSlice";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
+import { registerOrLogin } from "@/services/api";
 
 export function Login() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [values, setValues] = useState({
@@ -26,12 +24,11 @@ export function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = await dispatch(login(values.email, values.password));
+    const { email, password } = values;
 
-    if (!response.success) {
-      toast.error(response.error.message);
-      return;
-    }
+    const response = await registerOrLogin("login", { email, password });
+
+    if (!response) return;
 
     toast.success("Bievenido!");
     navigate("/products");

@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { supabase } from "@/services/supabase";
-import { store } from "./store";
 
 // slice siempre require un estado inicial
 // user => object, loading => bool, error => objecto
 const initialState = {
   user: null,
   access_token: null,
-  loading: true,
+  loading: false,
   error: null,
 };
 
@@ -29,48 +28,29 @@ const authSlice = createSlice({
       // {user: {}, access_token: ""}
       state.user = action.payload.user;
       state.access_token = action.payload.access_token;
-      // just in case, limpiamos el error
       state.error = null;
       state.loading = false;
     },
-    setLoading: (state, action) => {
-      state.loading = action.payload;
-      state.error = null;
-    },
+    // setLoading: (state) => {
+    //   state.loading = false;
+    //   state.error = null;
+    // },
     setError: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
     clearUser: (state) => {
       state.user = null;
-      state.loading = true;
+      state.access_token = null;
+      state.loading = false;
       state.error = null;
     },
   },
 });
 
-export const { setUser, setLoading, setError, clearUser } = authSlice.actions;
-
-export const getSession = () => async (dispatch) => {
-  // cuando queramos obtener la session llamemos setLoading
-  // inicia la carga
-  dispatch(setLoading(false));
-  try {
-    const { access_token } = store.getState().auth;
-    console.log(access_token);
-    // if (access_token) {
-    setLoading(false);
-    // }
-    // const { data } = await supabase.auth.getSession();
-    // dispatch(setUser(data.session?.user || null));
-  } catch (error) {
-    console.log("error", error);
-    dispatch(setError(error));
-  }
-};
+export const { setUser, setError, clearUser } = authSlice.actions;
 
 export const login = (email, password) => async (dispatch) => {
-  dispatch(setLoading(true));
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -90,7 +70,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const signUpWithEmail =
   (email, password, metadata) => async (dispatch) => {
-    dispatch(setLoading(true));
+    // dispatch(setLoading(true));
 
     try {
       const { data, error } = await supabase.auth.signUp({
@@ -113,7 +93,6 @@ export const signUpWithEmail =
 
 export const logoutUser = () => async (dispatch) => {
   try {
-    await supabase.auth.signOut();
     dispatch(clearUser());
     return { success: true };
   } catch (error) {

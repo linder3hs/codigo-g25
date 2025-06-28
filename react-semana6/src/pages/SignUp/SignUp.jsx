@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Link } from "react-router";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
-import { register } from "@/services/api";
+import { registerOrLogin } from "@/services/api";
 
 export function SignUp() {
   const navigate = useNavigate();
@@ -35,7 +35,12 @@ export function SignUp() {
     event.preventDefault();
     const { email, password, name, lastname } = values;
 
-    const response = await register({ email, password, name, lastname });
+    const response = await registerOrLogin("register", {
+      email,
+      password,
+      name,
+      lastname,
+    });
 
     if (!response) {
       toast("Hubo un error al autenticarnos");
