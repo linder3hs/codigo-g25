@@ -7,6 +7,7 @@ import { signUpWithEmail } from "@/redux/authSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
+import { register } from "@/services/api";
 
 export function SignUp() {
   const dispatch = useDispatch();
@@ -37,21 +38,23 @@ export function SignUp() {
     event.preventDefault();
     const { email, password, name, lastname, phone } = values;
 
-    const response = await dispatch(
-      signUpWithEmail(email, password, {
-        name,
-        lastname,
-        phone,
-      })
-    );
+    await register({ email, password, name, lastname });
 
-    if (!response.success) {
-      toast.error(String(response.error));
-      return;
-    }
+    // const response = await dispatch(
+    //   signUpWithEmail(email, password, {
+    //     name,
+    //     lastname,
+    //     phone,
+    //   })
+    // );
 
-    toast.success("La cuenta fue creada, ahora inicie sesión.");
-    navigate("/login");
+    // if (!response.success) {
+    //   toast.error(String(response.error));
+    //   return;
+    // }
+
+    // toast.success("La cuenta fue creada, ahora inicie sesión.");
+    // navigate("/login");
   };
 
   return (
