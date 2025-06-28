@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { supabase } from "@/services/supabase";
+import { store } from "./store";
 
 // slice siempre require un estado inicial
 // user => object, loading => bool, error => objecto
@@ -53,11 +54,17 @@ export const { setUser, setLoading, setError, clearUser } = authSlice.actions;
 export const getSession = () => async (dispatch) => {
   // cuando queramos obtener la session llamemos setLoading
   // inicia la carga
-  dispatch(setLoading(true));
+  dispatch(setLoading(false));
   try {
-    const { data } = await supabase.auth.getSession();
-    dispatch(setUser(data.session?.user || null));
+    const { access_token } = store.getState().auth;
+    console.log(access_token);
+    // if (access_token) {
+    setLoading(false);
+    // }
+    // const { data } = await supabase.auth.getSession();
+    // dispatch(setUser(data.session?.user || null));
   } catch (error) {
+    console.log("error", error);
     dispatch(setError(error));
   }
 };

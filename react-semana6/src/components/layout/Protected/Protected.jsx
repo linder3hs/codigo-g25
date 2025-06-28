@@ -3,13 +3,13 @@ import { Navigate, Outlet } from "react-router";
 import { AppSidebar } from "../AppSidebar";
 
 export function Protected() {
-  const { user, loading } = useSelector((state) => state.auth);
+  const { access_token, loading } = useSelector((state) => state.auth);
 
   if (loading) {
     return <p>Cargando...</p>;
   }
 
-  if (!user) {
+  if (!access_token) {
     return <Navigate to="/login" replace />;
   }
 
