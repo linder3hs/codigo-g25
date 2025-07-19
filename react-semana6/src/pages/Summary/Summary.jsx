@@ -14,6 +14,8 @@ import { Badge } from "@/components/ui/badge";
 import { CreditCard, MapPin, ShoppingBag } from "lucide-react";
 import { formatPrice } from "@/helpers/format";
 import { useSelector } from "react-redux";
+import { storeDataToAPI } from "@/services/api";
+import { toast } from "sonner";
 
 export function Summary() {
   const { products } = useSelector((state) => state.shoppingCart);
@@ -27,7 +29,7 @@ export function Summary() {
   const tax = subtotal * 0.18;
   const total = subtotal + shipping + tax;
 
-  const handleSubmitShipping = (e) => {
+  const handleSubmitShipping = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
@@ -43,7 +45,21 @@ export function Summary() {
       }),
     };
 
-    console.log({ body });
+    const { isSuccess, error, data } = await storeDataToAPI(
+      "/payments/create/",
+      body
+    );
+
+    if (error) {
+      toast.error(error);
+      return;
+    }
+    console.log({ isSuccess, error, data });
+    if (isSuccess && data) {
+      const a = document.createElement("a");
+      a.href = data.payment_link;
+      a.click();
+    }
   };
 
   return (

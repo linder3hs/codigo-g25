@@ -24,6 +24,28 @@ export async function getDataFromAPI(url) {
   }
 }
 
+export async function storeDataToAPI(url, body) {
+  try {
+    const { isSuccess, data, error } = await makePost(
+      `${BASE_URL}${url}`,
+      body
+    );
+
+    if (!isSuccess) throw error;
+
+    return {
+      isSuccess,
+      data,
+      error,
+    };
+  } catch (error) {
+    toast.error(`Error: ${error}`);
+    return {
+      error,
+    };
+  }
+}
+
 export async function registerOrLogin(path, body) {
   try {
     const { isSuccess, data, error } = await makePost(
