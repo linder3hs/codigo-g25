@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { getDataFromTable } from "@/services/supabase";
 import { toast } from "sonner";
 import { createColumnHelper } from "@tanstack/react-table";
+import { getDataFromAPI } from "@/services/api";
 
 export function useGetProducts() {
   const [tableData, setTableData] = useState({
@@ -56,33 +56,24 @@ export function useGetProducts() {
 
   const fetchProducts = async () => {
     try {
-      const result = await getDataFromTable(
-        "products",
-        `id,
-        name,
-        image,
-        price,
-        description,
-        brands (name),
-        categories (name)
-        `
-      );
+      console.log("fetch products");
+      const { error, data } = await getDataFromAPI("/products/");
 
-      if (!result.success) {
-        throw result.error;
+      if (error) {
+        throw error;
       }
 
-      const columns = generateColumns(result.data);
+      const columns = generateColumns(data);
 
-      const mapProducts = result.data.map((product) => {
+      const mapProducts = data.map((product) => {
         return {
           id: product.id,
           name: product.name,
           description: product.description,
-          brand: product.brands.name,
-          category: product.categories.name,
+          // brand: product.brands.name,
+          // category: product.categories.name,
           price: String(product.price),
-          image: product.image,
+          image: product?.image,
         };
       });
 
@@ -91,6 +82,7 @@ export function useGetProducts() {
         data: mapProducts,
       });
     } catch (error) {
+      console.log("fetch product:", error);
       toast.error(error.message);
     }
   };

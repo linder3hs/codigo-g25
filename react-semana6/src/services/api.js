@@ -1,9 +1,28 @@
-import { makePost } from "@/helpers/fetching";
+import { makeGet, makePost } from "@/helpers/fetching";
 import { setUser } from "@/redux/authSlice";
 import { store } from "@/redux/store";
 
-const BASE_URL = "http://127.0.0.1:5000/api/v1";
+const BASE_URL = "http://127.0.0.1:8000/api/v1";
 import { toast } from "sonner";
+
+export async function getDataFromAPI(url) {
+  try {
+    const { isSuccess, data, error } = await makeGet(`${BASE_URL}${url}`);
+
+    if (!isSuccess) throw error;
+
+    return {
+      isSuccess,
+      data,
+      error,
+    };
+  } catch (error) {
+    toast.error(`Error: ${error}`);
+    return {
+      error,
+    };
+  }
+}
 
 export async function registerOrLogin(path, body) {
   try {
