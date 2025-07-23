@@ -6,6 +6,9 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    allowedHosts: ["silver-radios-shake.loca.lt"],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
